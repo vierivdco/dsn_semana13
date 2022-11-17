@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Productos</title>
+    <style>
+        .container{
+            max-width: 960px;
+        }
+    </style>
+  </head>
+  <body>    
+    <div class="container">
+        <div class="input" class="shadow-lg p-3 mb-5 bg-body rounded">
+            <h4>Productos</h4>
+            <form action="/crear" method="POST" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input id="nombre" name="nombre" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="descripcion" class="form-label">Descripción:</label>
+                    <input id="descripcion" name="descripcion" type="text" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input id="stock" name="stock" type="number" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input id="precio" name="precio" type="number" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="marca" class="form-label">Marca</label>
+                  <input id="marca" name="marca" type="text" class="form-control" required>
+              </div>
+                <div class="col-md-6">
+                  <label for="foto" class="form-label">Foto</label>
+                  <input id ="foto" name="foto" type="file" class="form-control" required/>
+                </div>
+                <div>
+                  <img src="https://cdn0.iconfinder.com/data/icons/devices-icons-rounded/110/Laptop-512.png"
+                  width="300" height="300" class="laptop">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline-light"><i class="bi bi-save"></i>Registrar Producto</button>
+            </form>
+            <!-- Tabla Producto  -->
+            <table id="tablaProductos" class="table table-dark table-striped-columns">
+                <thead>
+                    <tr>
+                        <th style="display: none;">ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Stock</th>
+                        <th>Precio</th>
+                        <th>Marca</th>
+                        <th>Foto</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productos.forEach( (producto) => { %>
+                        <tr>
+                            <td style="display: none;"><%= producto._id %></td>
+                            <td><%= producto.nombre %></td>
+                            <td><%= producto.descripcion %></td>
+                            <td><%= producto.stock %></td>
+                            <td><%= producto.precio %></td>
+                            <td><%= producto.marca %></td>
+                            <td><img src="<%= producto.foto %>" width="100px"></td>
+                            <td>
+                                <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                                <a href="/borrar/<%= producto._id %>" class="btn btn-outline-danger bi bi-trash"></a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+    </div>
+    
+    <!-- Modal para Editar   -->
+    <div id="modalProducto" class="modal fade" tabindex="-1" aria-labelledby="modalProducto" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title" id="exampleModalLabel">Editar Info</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/editar" method="POST" enctype="multipart/form-data">
+                  <input name="id_editar" id="id_editar" type="text" hidden>
+                <div class="mb-3">
+                  <label for="nombre_editar" class="col-form-label">Nombre:</label>
+                  <input id="nombre_editar" name="nombre_editar" type="text" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                  <label for="descripcion_editar" class="col-form-label">Descripción:</label>
+                  <input id="descripcion_editar" name="descripcion_editar" type="text" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="stock" class="col-form-label">Stock:</label>
+                    <input id="stock_editar" name="stock_editar" type="number" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="precio_editar" class="col-form-label">Precio:</label>
+                    <input id="precio_editar" name="precio_editar" type="number" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="marca_editar" class="col-form-label">Marca:</label>
+                    <input id="marca_editar" name="marca_editar" type="text" class="form-control" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="foto_editar" class="col-form-label">Foto:</label>
+                    <input id ="foto_editar " name="foto_editar" type="file" class="form-control" value=""/>
+                </div>
+            </div>
+            <div class="modal-footer">              
+              <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+          </form>
+          </div>
+        </div>
+    </div>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="js/code.js"></script>
+  </body>
+</html>

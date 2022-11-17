@@ -1,0 +1,20 @@
+body {
+    background-image: url('https://ak.picdn.net/shutterstock/videos/17690698/thumb/10.jpg?ip=x480');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.input {
+    background-color: rgb(235, 220, 89);
+}
+
+.tabla{
+    background-color: white;
+}
+
+.laptop {
+    float: right;
+    position: absolute;
+    right: 270px;
+    top: 55px;
+}
